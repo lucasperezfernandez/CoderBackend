@@ -19,11 +19,21 @@ app.use(express.static(__dirname + '/public'))
 app.use((req, res, next)=>{
     console.log(`Middleware de App se ejecuta con todos`);
     next();
-})
+});
 
 // ----------------Rutas----------------------
 app.use('/api/mascotas', routerMascotas);
 app.use('/api/personas', routerPersonas);
+
+app.get('/error', (erq, res)=>{
+    let x = 1/0;
+    res.status(200).send(x);
+})
+//Errores globales
+app.use((err ,req, res, next)=>{
+    res.status(err.status || 500).send('Something broke!')
+});
+
 
 
 // SERVIDOR
@@ -36,4 +46,4 @@ server.on('error', error => {
 });
 
 
-//clase 8  1:25:00
+//clase 8  1:35:00
