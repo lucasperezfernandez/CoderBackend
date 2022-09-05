@@ -19,6 +19,12 @@ app.use(express.static(__dirname + '/public'))
 // ----------------Rutas----------------------
 app.use('/api/mascotas', routerMascotas);
 app.use('/api/personas', routerPersonas);
+// Diferencia con lo anterior
+/* 
+app.get('/', (req, res)=>{
+    res.send('Hola Coders')
+})
+*/
 
 
 // SERVIDOR

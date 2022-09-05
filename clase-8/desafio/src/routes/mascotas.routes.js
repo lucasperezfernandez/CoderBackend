@@ -6,6 +6,7 @@ const DB_MASCOTAS = [{
     name: 'jesus'
 }];
 
+//URLs
 routerMascotas.get('/', (req, res)=>{
     res.status(200).json(DB_MASCOTAS);
 });
@@ -16,7 +17,7 @@ routerMascotas.get('/darPatita', (req, res)=>{
 
 
 routerMascotas.post('/', (req, res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     DB_MASCOTAS.push(req.body);
     res.status(201).json({msg:'Agregado', data: req.body});
 });
