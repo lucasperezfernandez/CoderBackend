@@ -14,7 +14,15 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 /*--------------------Rutas-------------------------*/
-// app.get();  
+app.get('/test', (req,res)=>{
+    const datos = {
+        min:1,
+        max:10,
+        value:7,
+        titulo:'Medidor'
+    };
+    res.render('medidor', datos);
+});  
 
 
 /*--------------------Servidor-------------------------*/
