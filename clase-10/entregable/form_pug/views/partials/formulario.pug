@@ -1,0 +1,21 @@
+div(class="jumbotron")
+    h1(style="color:blue;") Ingrese datos
+    br
+    form(action="/personas" method="post")
+        div(class="form-group")
+            label(for="nombre")
+                b Nombre
+            input(id="nombre" class="form-control" type="text" name="nombre" onchange="console.log('Desde pug')")
+        .form-group
+            label(for='apellido')
+                b Apellido
+            input#apellido.form-control(type='text' name='apellido')
+        .form-group
+            label(for='edad')
+                b Edad
+            input#edad.form-control(type='number' name='edad')
+        .form-group
+            label(for='avatar')
+                b Avatar
+            input#avatar.form-control(type='text' name='avatar')
+        button(class="btn btn-success mt-3 mb-5") Enviar 

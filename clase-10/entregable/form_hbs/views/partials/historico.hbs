@@ -1,0 +1,23 @@
+<div>
+    <h2 style="color:crimson;">Historial</h2>
+
+    {{#if DB_PERSONAS}}
+        <div class="table-responsive">
+            <table class="table table-dark">
+                <tr style="color: yellow;"> <th>Nombre</th> <th>Apellido</th> <th>Edad</th><th>Avatar</th> </tr>
+                {{#each DB_PERSONAS}}
+                <tr>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.apellido}}</td>
+                    <td>{{this.edad}}</td>
+                    <td>
+                        <img width="30" src="{{this.avatar}}" alt="">
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    {{else}}
+        <h3 class="alert alert-warning">No se encontraron productos</h3>
+    {{/if}}
+</div>

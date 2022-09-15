@@ -1,0 +1,20 @@
+div
+    h2(style='color:crimson;') Historial
+    br
+    if DB_PERSONAS.length > 0
+        div(class="table-responsive")
+            table.table.table-dark
+                tr(style='color: yellow;')
+                    th Nombre
+                    th Apellido
+                    th Edad
+                    th Avatar 
+                each persona in DB_PERSONAS
+                    tr
+                        td=persona.nombre
+                        td=persona.apellido
+                        td=persona.edad 
+                        td
+                            img(width="30" src=persona.avatar, alt="")
+    else 
+        h3(class="alert alert-warning")="No se encontraron productos"
