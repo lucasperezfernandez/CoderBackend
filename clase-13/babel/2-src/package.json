@@ -1,0 +1,17 @@
+{
+  "name": "2-src",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.3"
+  },
+  "description": ""
+}
