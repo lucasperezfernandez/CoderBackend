@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busqueda segun ID</title>
+</head>
+<body>
+    <br>
+    <form action="">
+        <label for="">Admin:</label>
+        <input type="text" name="" id="admin">
+        <label for="">Clave("123"): </label> 
+        <input type="password" id="password">
+        <button type="button" onclick="getValue()">Value</button>
+    </form>
+    <br><hr>
+
+    <h2>Listado productos</h2>
+    <form action="/api/productos/" method="get">
+        <button>Ver</button>
+    </form>
+    <br><hr>
+
+    <h2>Ingrese Producto</h2>
+    <form action="/api/productos" method="POST">
+        Id: <input type="number" name="id">
+        Title: <input type="text" name="title">
+        Price: <input type="text" name="price">
+        <button>Enviar</button>
+    </form>
+    <br><hr>
+
+    <h2>Crear Carrito</h2>
+    <form action="/api/carrito" method="POST">
+        Id: <input type="number" name="id">
+
+        <button>Enviar</button>
+    </form>
+    <br><hr>
+
+
+
+
+    <script src="admin.js"></script>
+</body>
+</html>
