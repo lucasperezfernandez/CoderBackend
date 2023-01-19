@@ -1,0 +1,2 @@
+npm init -y && npm install mongoose
+Argergar al package.json "type": "module"
