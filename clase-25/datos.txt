@@ -1,0 +1,1 @@
+$ npm init -y && npm install express dotenv express-session express-handlebars
