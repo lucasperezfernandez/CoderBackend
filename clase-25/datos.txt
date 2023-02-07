@@ -1,1 +1,3 @@
 $ npm init -y && npm install express dotenv express-session express-handlebars
+npm i passport passport-local
+npm i morogan

@@ -1,0 +1,28 @@
+Setup:
+// EN CARPETA ecommerce
+npm init -y
+npm i bcrypt cloudinary cookie-parser concurrently cors dotenv express express-fileupload jsonwebtoken mongoose 
+npm i -D nodemon
+AGREGAR TYPE MODULE
+npm install socket.io && npm i morgan
+npm install express-session express-handlebars
+npm i passport passport-local
+
+
+
+npm init react-app client
+
+//EN CARPETA client
+npm i react-router-dom axios 
+npm install --save --legacy-peer-deps react-paypal-express-checkout
+
+
+
+
+DE CERO
+
+ECOMMERCE API
+npm init -y
+npm i express mongoose dotenv nodemon
+npm install crypto-js
+npm install jsonwebtoken
