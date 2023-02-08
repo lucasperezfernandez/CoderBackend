@@ -26,3 +26,5 @@ npm init -y
 npm i express mongoose dotenv nodemon
 npm install crypto-js
 npm install jsonwebtoken
+npm install express-session express-handlebars
+npm i passport passport-local

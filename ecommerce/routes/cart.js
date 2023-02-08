@@ -5,7 +5,7 @@ const router = require("express").Router();
 
 
 //CREATE
-router.post("/",verifyToken, async  (req,res)=>{
+router.post("/", async (req,res)=>{
     const newCart = new Cart(req.body)
     try {
         const savedCart = await newCart.save();
@@ -18,7 +18,7 @@ router.post("/",verifyToken, async  (req,res)=>{
 
 
 //DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req,res)=>{
+router.delete("/:id", async (req,res)=>{
     try {
         await Cart.findByIdAndDelete(req.params.id)
         res.status(200).json("Carrito eliminado...")
@@ -28,7 +28,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req,res)=>{
 })
 
 //GET USER CART
-router.get("/:userId",verifyTokenAndAuthorization, async (req,res)=>{
+router.get("/:userId", async (req,res)=>{
     try {
         const cart = await Cart.findOne({userId: req.params.userId});
         res.status(200).json(cart);
@@ -38,14 +38,42 @@ router.get("/:userId",verifyTokenAndAuthorization, async (req,res)=>{
 })
 
 //GET ALL 
-router.get("/", verifyTokenAndAdmin, async (req,res)=>{
+router.get("/", async (req,res)=>{
     try {
         const carts = await Cart.find();
-        res.status(200).json(cart);
+        res.status(200).json(carts);
     } catch (err) {
         res.satus(500).json(err)
     }
 })
+
+//PUT
+router.put("/:id", async(req,res)=>{
+    if(req.body.password){
+        req.body.password = CryptoJS.AES.encrypt(
+            req.body.password, 
+            process.env.PASS_SEC
+            ).toString();
+    }
+
+    try {
+        const updatedUser = await Cart.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body
+            },
+            { new: true }
+        );
+        res.status(200).json(updatedUser)
+    }
+
+    catch(err){
+        res.status(500).json(err);
+    }
+})
+
+
+
 
 
 
