@@ -5,30 +5,35 @@ const dotenv = require("dotenv");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const path = require("path");
+const {Server: HttpServer} = require('http');
+const {Server: IOServer} = require('socket.io');
 
 const userRoute = require("./routes/user.js")
 const authRoute = require("./routes/auth.js")
 const productsRoute = require("./routes/product.js")
 const cartRoute = require("./routes/cart.js")
 const orderRoute = require("./routes/order.js");
+const chatRoute = require("./routes/chat.js");
+const Chat = require("./models/Chat.js");
 
-
-const User = require("./models/User.js");
-
-
+/* ---------------------- Instancia de servidor ----------------------*/
 dotenv.config();
 const app = express();
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
 
+
+/*============================[Middlewares]============================*/
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+/*---------------------- Base de datos ----------------------*/
 mongoose.connect(process.env.MONGODB_URL)
     .then(()=> console.log("Successfull DB Connection"))
     .catch((err)=>{
         console.log(err);
     });
-
-
-/*============================[Middlewares]============================*/
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
 /*----------- Motor de plantillas -----------*/
 app.set('views', 'src/views');
@@ -49,7 +54,6 @@ app.use(session({
     }
 }))
 
-/*============================[Base de Datos]============================*/
 
 /*============================[Rutas]============================*/
 
@@ -58,30 +62,17 @@ app.get("/", (req,res)=>{
     res.redirect('/api/auth/login');
 })
 
+app.get('/chat', (req, res) => {
+    res.redirect('/api/chat')
+});
 
 
-app.get("/api/test",(req,res)=>{
-    res.render('test.hbs');
-})
-app.get("/test", async (req,res)=>{
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
-
-
-
-
-//MANUAL
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute); 
 app.use("/api/products", productsRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/chat", chatRoute);
 
 
 /*============================[Servidor]============================*/
@@ -93,3 +84,13 @@ server.on('error', error => {
     console.error(`Error en el servidor ${error}`);
 });
 
+/* ---------------------- WebSocket ----------------------*/
+io.on('connection', (socket)=>{
+    console.log(`Nuevo cliente conectado! ${socket.id}`);
+    socket.emit('from-server-mensajes', {DB_MENSAJES});
+
+    socket.on('from-client-mensaje', mensaje => {
+        DB_MENSAJES.push(mensaje);
+        io.sockets.emit('from-server-mensajes', {DB_MENSAJES});
+    });
+})

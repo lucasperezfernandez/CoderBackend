@@ -18,7 +18,7 @@ router.post("/",verifyToken, async  (req,res)=>{
 
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req,res)=>{
+router.delete("/:id", async (req,res)=>{
     try {
         await Order.findByIdAndDelete(req.params.id)
         res.status(200).json("Orden eliminada...")
@@ -38,7 +38,7 @@ router.get("/:userId",verifyTokenAndAuthorization, async (req,res)=>{
 })
 
 //GET ALL 
-router.get("/", verifyTokenAndAdmin, async (req,res)=>{
+router.get("/", async (req,res)=>{
     try {
         const orders = await Order.find();
         res.status(200).json(orders);

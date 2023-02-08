@@ -5,7 +5,7 @@ const router = require("express").Router();
 
 
 //CREATE
-router.post("/", async (req,res)=>{
+router.post("/",verifyToken, async (req,res)=>{
     const newCart = new Cart(req.body)
     try {
         const savedCart = await newCart.save();
@@ -28,7 +28,7 @@ router.delete("/:id", async (req,res)=>{
 })
 
 //GET USER CART
-router.get("/:userId", async (req,res)=>{
+router.get("/:userId", verifyTokenAndAuthorization ,async (req,res)=>{
     try {
         const cart = await Cart.findOne({userId: req.params.userId});
         res.status(200).json(cart);
@@ -47,31 +47,48 @@ router.get("/", async (req,res)=>{
     }
 })
 
-//PUT
-router.put("/:id", async(req,res)=>{
-    if(req.body.password){
-        req.body.password = CryptoJS.AES.encrypt(
-            req.body.password, 
-            process.env.PASS_SEC
-            ).toString();
-    }
+//UPDATE
+// router.put("/:id", async(req,res)=>{
+//     if(req.body.password){
+//         req.body.password = CryptoJS.AES.encrypt(
+//             req.body.password, 
+//             process.env.PASS_SEC
+//             ).toString();
+//     }
 
+//     try {
+//         const updatedUser = await Cart.findByIdAndUpdate(
+//             req.params.id,
+//             {
+//                 $set: req.body
+//             },
+//             { new: true }
+//         );
+//         res.status(200).json(updatedUser)
+//     }
+
+//     catch(err){
+//         res.status(500).json(err);
+//     }
+// })
+
+//UPDATE
+router.put("/:id", verifyTokenAndAuthorization ,async(req,res)=>{
     try {
-        const updatedUser = await Cart.findByIdAndUpdate(
+        const updatedCart = await Cart.findByIdAndUpdate(
             req.params.id,
             {
                 $set: req.body
             },
             { new: true }
         );
-        res.status(200).json(updatedUser)
+        res.status(200).json(updatedCart)
     }
 
     catch(err){
         res.status(500).json(err);
     }
 })
-
 
 
 
